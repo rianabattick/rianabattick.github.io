@@ -1,0 +1,137 @@
+<html>
+<head>
+  <meta name="mphtools-feature" content="compatibilityUI, cameraPrivacyPopup, compatibilityAutoCheck">
+</head>
+<body>
+  <button style="display: block;  width: 50%; height: 50%;  border: none;  background-color: #04AA6D;  color: black;  padding: 14px 28px;  font-size: 16px;  cursor: pointer;  text-align: center;" type="button" id="BeginButton" onclick="initRecog(this)">CLICK before you start</button>
+  <style>.embed-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; } .embed-container iframe, .embed-container object, .embed-container embed { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }</style><div class='embed-container'><iframe id= 'vid' src='https://www.youtube.com/embed//QiF9V1lO9WA' frameborder='0' allowfullscreen></iframe></div>
+  <p id= 'textBox'>The demand for plastic has only increased over the years. To date over 300 million tonnes of plastic are produced worldwide every year (1/2). Of the plastic made so far less than 10 percent of all plastic made has been recycled (2). A majority of plastic waste goes to landfills and the ocean (1). These can be plastic utensils, bottles, and many other everyday items. </p>
+  <script src="https://thunkable.github.io/webviewer-extension/thunkableWebviewerExtension.js" type="text/javascript"></script>
+  <script src="https://sdk.morphcast.com/mphtools/v1.0/mphtools.js"></script>
+<script src="https://ai-sdk.morphcast.com/v1.16/ai-sdk.js"></script>
+<script>
+
+let counters = [0, 0, 0, 0, 0];
+let counterNames = ["Happy", "Sad", "Angry", "Disgust", "Fear"];
+let checker = false;
+let link = '';
+let counter = 1;
+let endTracker = false;
+
+
+function videoList(currentIndex) {
+if (counter == 1){
+if (currentIndex != 0 && currentIndex != 4)
+{
+document.getElementById('textBox').innerText  = 'We often see rubbish when visiting the seaside. But this is just the tip of the problem. Plastics are entering our ocean at an alarming rate and are there to stay. Watch this beautiful yet sobering animation on the facts of plastic pollution, what’s happening and how we can help.';
+return 'https://www.youtube.com/embed//QiF9V1lO9WA'
+}
+else
+{
+document.getElementById('textBox').innerText  = "The amount of plastic in the environment has become a part of Earth's fossil record. The amount of plastic produced has increased but the disposal has not kept up. In the 2000s alone the waste rose more in a single decade than it had in the previous 40 years(2). The waste lasts for centuries and just breaks up and becomes smaller. These smaller pieces permeate through ecosystems and even inter human bodies (2).";
+return 'https://www.youtube.com/embed//CurmnLKikyI
+}
+}
+else if (counter == 2){
+if (currentIndex != 0 && currentIndex != 4)
+{
+document.getElementById('textBox').innerText  = "Plastics permeate throughout our world. The longevity ensures it stays that way. The plastic breaks down into small particles that enter animals through numerous ways. They have already spread through whole ecosystems. Humans are no different. Be it runoff from plastic landfills or eating animals that contain microplastics they are becoming more prevalent among humans. ";
+return 'https://www.youtube.com/embed//fbyK1z1_W4s
+}
+else
+{
+document.getElementById('textBox').innerText  = "Some of the greatest issues of plastic come from its longevity and ability to affect whole ecosystems. To add to the problem, the increase in plastic production means there is more plastic that ends up in landfills and in the ocean (3). Even humans have been affected. Recently microplastics have also been found in human lungs (2). ";
+return 'https://www.youtube.com/embed//uynhvHZUOOo?t=505'
+}
+}
+else
+{
+endTracker = true;
+document.getElementById('textBox').innerText  = '';
+return ''
+}
+}
+
+function initRecog(button){
+//vidShuffle(link);
+if(checker == true){
+document.getElementById("BeginButton").textContent = "CLICK ME TO BEGIN";
+let max = Math.max(...counters);
+let maxIndex = counters.indexOf(max);
+//console.log(counterNames[maxIndex] + ": " + max);
+counter =counter + 1;
+document.getElementById('vid').src = videoList(maxIndex);
+ThunkableWebviewerExtension.postMessage(counter);
+checker = false;
+return;
+}
+
+CY.loader()
+  .licenseKey("ed6a12c60375cfd79dca1cb5dcc58fd0f684c0b62c2c")
+  .addModule(CY.modules().FACE_AGE.name)
+  .addModule(CY.modules().FACE_GENDER.name)
+  .addModule(CY.modules().FACE_EMOTION.name)
+  .load()
+  .then(({ start, stop }) => start());
+ 
+window.addEventListener(CY.modules().FACE_EMOTION.eventName, (evt) => {
+if(evt.detail.output.dominantEmotion == "Happy"){
+counters[0] += 1;
+}
+if(evt.detail.output.dominantEmotion == "Sad"){
+counters[1] += 1;
+}
+if(evt.detail.output.dominantEmotion == "Angry"){
+counters[2] += 1;
+}
+if(evt.detail.output.dominantEmotion == "Disgust"){
+counters[3] += 1;
+}
+if(evt.detail.output.dominantEmotion == "Fear"){
+counters[4] += 1;
+}
+});
+checker = true;
+document.getElementById("BeginButton").textContent = 'Next Section';
+//button.style.visibility = "hidden";
+}
+
+</script>
+</body>
+</html>
+	}
+		document.getElementById('BeginButton').style.background='#FF2B2D';
+		
+		CY.loader()
+	   .licenseKey("ed6a12c60375cfd79dca1cb5dcc58fd0f684c0b62c2c")
+	   .addModule(CY.modules().FACE_AGE.name)
+	   .addModule(CY.modules().FACE_GENDER.name)
+	   .addModule(CY.modules().FACE_EMOTION.name)
+	   .load()
+	   .then(({ start, stop }) => start());
+	   
+	window.addEventListener(CY.modules().FACE_EMOTION.eventName, (evt) => {
+		if(evt.detail.output.dominantEmotion == "Happy"){
+			counters[0] += 1;
+		}
+		if(evt.detail.output.dominantEmotion == "Sad"){
+			counters[1] += 1;
+		}
+		if(evt.detail.output.dominantEmotion == "Angry"){
+			counters[2] += 1;
+		}
+		if(evt.detail.output.dominantEmotion == "Disgust"){
+			counters[3] += 1;
+		}
+		if(evt.detail.output.dominantEmotion == "Fear"){
+			counters[4] += 1;
+		}
+	});
+		checker = true;
+		document.getElementById("BeginButton").textContent = 'Next Section';
+		//button.style.visibility = "hidden";
+	}
+		
+	</script>
+</body>
+</html>
